@@ -1,0 +1,416 @@
+{
+	"info": {
+		"_postman_id": "69b5f0a1-1db0-489d-8b48-5d9c073496ad",
+		"name": "SarveRest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST",
+			"item": [
+				{
+					"name": "Add Usuario",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const resposta = pm.response.json();\r",
+									"pm.globals.set(\"id\", resposta._id);\r",
+									"\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validar Response body\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Cadastro realizado com sucesso\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"Tiago Soares\",\r\n  \"email\": \"tiago.soares@qa.com.br\",\r\n  \"password\": \"teste\",\r\n  \"administrador\": \"true\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}usuarios",
+							"host": [
+								"{{url}}usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Usuario 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const resposta = pm.response.json();\r",
+									"pm.globals.set(\"id_2\", resposta._id);\r",
+									"\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validar Response body\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Cadastro realizado com sucesso\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"Tiago Felipe\",\r\n  \"email\": \"tiago.felipe@qa.com.br\",\r\n  \"password\": \"teste\",\r\n  \"administrador\": \"true\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}usuarios",
+							"host": [
+								"{{url}}usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add usuario email já existente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validar response body\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Este email já está sendo usado\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"Caio Augusto\",\r\n  \"email\": \"beltrano@qa.com.br\",\r\n  \"password\": \"teste\",\r\n  \"administrador\": \"true\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}usuarios",
+							"host": [
+								"{{url}}usuarios"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GET",
+			"item": [
+				{
+					"name": "Retornar todos usuarios",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"validar response body\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"usuarios\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}usuarios",
+							"host": [
+								"{{url}}usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retornar usuario pelo id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Validar response body\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Tiago Soares\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}usuarios/{{id}}",
+							"host": [
+								"{{url}}usuarios"
+							],
+							"path": [
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Usuario inavalido",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"validar response body\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Usuário não encontrado\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}usuarios/owordU2uSQ2Oph7s",
+							"host": [
+								"{{url}}usuarios"
+							],
+							"path": [
+								"owordU2uSQ2Oph7s"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PUT",
+			"item": [
+				{
+					"name": "Editar Usuario",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validar Response\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Registro alterado com sucesso\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"Caique Soares\",\r\n  \"email\": \"caique.oliveira@qa.com.br\",\r\n  \"password\": \"teste123\",\r\n  \"administrador\": \"true\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}usuarios/{{id}}",
+							"host": [
+								"{{url}}usuarios"
+							],
+							"path": [
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DELETE",
+			"item": [
+				{
+					"name": "Deletar Usuario",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validar Response body\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Registro excluído com sucesso\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}usuarios/{{id}}",
+							"host": [
+								"{{url}}usuarios"
+							],
+							"path": [
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar Usuario 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validar Response body\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Registro excluído com sucesso\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}usuarios/{{id_2}}",
+							"host": [
+								"{{url}}usuarios"
+							],
+							"path": [
+								"{{id_2}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar usuario inexistente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"Nenhum registro excluído\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}usuarios/jKSoqJ1CAcHnhyYz",
+							"host": [
+								"{{url}}usuarios"
+							],
+							"path": [
+								"jKSoqJ1CAcHnhyYz"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
